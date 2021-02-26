@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Shallow Works Tool</title> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ </head>
+ <style>
+.vl {
+    border-left: 3px solid darkgray;
+    height:610px;
+    position: absolute;
+    left: 208px;
+    margin-left: -468px;
+    top: 89px;
+	margin-top: -263px;	
+}
+.imageLoad{
+	margin-left: 571px;
+    position: relative;
+    margin-top: -48px;
+}
+ </style>
+
+ <body style="overflow:hidden">
+ <div><label>Image Input File:</label>
+<input type="file" id="imageLoader" class="mySlides" name="imageLoader" webkitdirectory mozdirectory msdirectory odirectory directory multiple/></div>
+<div class="imageLoad"><label>Image Output File:</label>
+<input type="file"  name="image"/></div>
+<hr style="margin-top: 10px;margin-bottom: 5px;    border-top:3px solid darkgray;">
+<h3 style="margin-left: 0px;"><i>Choose The Lane</i></h3>
+ <input type="button" onclick="myFunction('red')" class="btn btn-primary" style="background-color:red; width:65px;height:30px" id="red" value="TP-F1">
+ <input type="button" onclick="myFunction('orange')" class="btn btn-primary" style="background-color:orange;width:65px;height:30px" value="TP-F2">
+ <input type="button" onclick="myFunction('green')" class="btn btn-primary" style="background-color:green;width:65px;height:30px" value="TP-F3">
+ <br><br>
+ <input type="button" onclick="myFunction('yellow')" class="btn btn-primary" style="background-color:yellow;width:65px;height:30px" value="FP-F1">
+ <input type="button" onclick="myFunction('blue')" class="btn btn-primary" style="background-color:blue;width:65px;height:30px"  value="FP-F2">
+ <input type="button" onclick="myFunction('purple')" class="btn btn-primary" style="background-color:purple;width:65px;height:30px"  value="FP-F3">
+ <br><br>
+ <input type="button" onclick="myFunction('brown')" class="btn btn-primary" style="background-color:brown;width:65px;height:30px" value="FN-F1">
+ <input type="button" onclick="myFunction('pink')" class="btn btn-primary" style="background-color:pink;width:65px;height:30px"  value="FN-F2">
+ <input type="button" onclick="myFunction('gray')" class="btn btn-primary" style="background-color:gray;width:65px;height:30px" value="FN-F3">
+ <br>
+ <br>
+ <h3 style="color:green;margin-left: 6px;">Image Navigation</h3>
+ <div class="vl"></div>
+ <input type="button" class="btn btn-primary" onclick="plusDivs(-1)" style="height:30px;margin-left: 14px;padding-top: 4px;" value="Previous">
+ <input type="button" class="btn btn-primary" onclick="plusDivs(1)"  style="width:85px;height:30px;padding:2px" value="Next"><br><br>	
+ <input type="button" class="btn btn-primary"  style="width:80px; height:55px; margin-left:54px"value="Start">
+ <div><h3 style="color:dodgerblue;margin-left:25px;margin-top:111px;">Sushant's Works</b></h3></div>
+<canvas id="imageCanvas" class="" width="1120" height="560" style=" margin-left:221px;;margin-top: -495px;border:8px solid black; position:relative;"></canvas>
+<h6 style="color:gray;font-size: 13px;margin-top: -18px;margin-left:6px;">&copy; Copyright Sushant's Works 2021</h6>
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+
+var imageLoader = document.getElementById('imageLoader');
+    imageLoader.addEventListener('change', handleImage, true);
+var canvas = document.getElementById('imageCanvas');
+var ctx = canvas.getContext('2d');
+
+
+function handleImage(e){
+    var reader = new FileReader();
+    reader.onload = function(event){
+        var img = new Image();
+        img.onload = function(){
+            canvas.width = 1120;
+            canvas.height = 560;
+			ctx.drawImage(this,this.x,0,1120,this.height*(1120/this.width));
+            /*ctx.drawImage(img,0,0);*/
+			ctx.font = "15px Arial";
+			ctx.fillText("Image Details",5,5);
+			ctx.fillStyle = 'red';
+         ctx.fillRect(900, 350, 35, 10);
+		 ctx.fillRect(600, 350, 35, 10);
+		 ctx.fillRect(350, 350, 35, 10);
+		 ctx.fillRect(150, 350, 35, 10);
+		 ctx.moveTo(00, 300);
+ctx.lineTo(1200, 300);
+ctx.strokeStyle = "red"
+ctx.stroke();
+        }
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(e.target.files[0]);     
+}
+function myFunction(color) {
+  document.getElementById("imageCanvas").style.borderColor = color;
+}
+</script>
+
+ </body>
+
+</html>
